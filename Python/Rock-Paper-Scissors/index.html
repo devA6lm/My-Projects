@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #fce7f3);
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 15px;
+            color: #243047;
+        }
+
+        .game {
+            background: white;
+            max-width: 450px;
+            margin: auto;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px #0002;
+        }
+
+        h1 {
+            color: #3156a3;
+            font-size: 27px;
+        }
+
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .choice {
+            background: #dbeafe;
+            border: 2px solid #93c5fd;
+            border-radius: 15px;
+            padding: 15px 8px;
+            cursor: pointer;
+            flex: 1;
+            font-size: 15px;
+        }
+
+        .choice span {
+            display: block;
+            font-size: 35px;
+            margin-bottom: 8px;
+        }
+
+        .choice:hover {
+            background: #bfdbfe;
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 25px 0;
+            color: #3156a3;
+        }
+
+        .score {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        .reset {
+            background: #f9a8d4;
+            color: #831843;
+            border: none;
+            padding: 13px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="game">
+        <h1>Rock Paper Scissors</h1>
+        <p>Choose your move to play!</p>
+
+        <div class="choices">
+            <button class="choice" onclick="play('Rock')">
+                <span>🪨</span>Rock
+            </button>
+
+            <button class="choice" onclick="play('Paper')">
+                <span>📄</span>Paper
+            </button>
+
+            <button class="choice" onclick="play('Scissors')">
+                <span>✂️</span>Scissors
+            </button>
+        </div>
+
+        <p id="player">You chose: -</p>
+        <p id="computer">Computer chose: -</p>
+
+        <div id="result">Choose to Start!</div>
+
+        <div class="score">
+            Player: <span id="playerScore">0</span>
+            |
+            Computer: <span id="computerScore">0</span>
+        </div>
+
+        <button class="reset" onclick="resetGame()">
+            Reset Game
+        </button>
+    </div>
+
+    <script>
+        let playerScore = 0;
+        let computerScore = 0;
+
+        function play(playerChoice) {
+            const choices = ["Rock", "Paper", "Scissors"];
+
+            const computerChoice =
+                choices[Math.floor(Math.random() * 3)];
+
+            document.getElementById("player").textContent =
+                "You chose: " + playerChoice;
+
+            document.getElementById("computer").textContent =
+                "Computer chose: " + computerChoice;
+
+            let result = "";
+            let color = "";
+
+            if (playerChoice === computerChoice) {
+                result = "It's a Tie!";
+                color = "orange";
+            }
+            else if (
+                (playerChoice === "Rock" && computerChoice === "Scissors") ||
+                (playerChoice === "Paper" && computerChoice === "Rock") ||
+                (playerChoice === "Scissors" && computerChoice === "Paper")
+            ) {
+                result = "You Win! 🎉";
+                color = "green";
+                playerScore++;
+            }
+            else {
+                result = "Computer Wins!";
+                color = "red";
+                computerScore++;
+            }
+
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = result;
+            resultElement.style.color = color;
+
+            document.getElementById("playerScore").textContent =
+                playerScore;
+
+            document.getElementById("computerScore").textContent =
+                computerScore;
+        }
+
+        function resetGame() {
+            playerScore = 0;
+            computerScore = 0;
+
+            document.getElementById("player").textContent =
+                "You chose: -";
+
+            document.getElementById("computer").textContent =
+                "Computer chose: -";
+
+            document.getElementById("result").textContent =
+                "Choose to Start!";
+
+            document.getElementById("result").style.color =
+                "#3156a3";
+
+            document.getElementById("playerScore").textContent = 0;
+            document.getElementById("computerScore").textContent = 0;
+        }
+    </script>
+
+</body>
+</html>
